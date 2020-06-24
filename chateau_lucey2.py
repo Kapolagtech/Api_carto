@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 
 APIK="65cac0f456f55747c7f58e9ba1e824d0"
 
+# TODO : Remove API Key form publications
+
 #​https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&
 #exclude={part}&appid={YOUR API KEY}
 
