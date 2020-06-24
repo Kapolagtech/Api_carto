@@ -24,14 +24,14 @@ def print_dict(l,titre):
 def get_area(locations):
     # get area boundaries.
     # initialising min/max with first record #0
-    lat_min=lat_max=locations[0]['lat']
-    lon_min=lon_max=locations[0]['lon']
+    lat_min=lat_max=float(locations[0]['lat'])
+    lon_min=lon_max=float(locations[0]['lon'])
     # let's check each record :
     for location in locations :
-        lat_min=min(lat_min,location['lat'])
-        lat_max=max(lat_max,location['lat'])
-        lon_min=min(lon_min,location['lon'])
-        lon_max=max(lon_max,location['lon'])
+        lat_min=min(lat_min, float(location['lat']))
+        lat_max=max(lat_max,float(location['lat']))
+        lon_min=min(lon_min,float(location['lon']))
+        lon_max=max(lon_max,float(location['lon']))
     # adding some border  (10%):
     o_lat = ((lat_max - lat_min)/100)*10
     o_lon = ((lon_max - lon_min)/100)*10
@@ -53,7 +53,7 @@ def get_weather(c):
 
 def main():
     #1 - get locations from file :
-    locations = get_locations('lonlat.txt')
+    locations = get_locations('lonlatonly.txt')
 
 
     #2 - add weather for each point :
