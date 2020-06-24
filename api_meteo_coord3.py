@@ -51,11 +51,22 @@ def get_weather(c):
     weather=requests.get(url).json()
     print(weather)
     c["temp"]=weather['main']['temp']
+    c["humidity"]=weather['main']['humidity']
     return c
 
-def get_map(coords):
-    map = smopy.Map( (coords['lat_min'],coords['lon_min'],coords['lat_max'],coords['lon_max']) , z=8)
+
+def get_map(locations):
+    area=get_area(locations)
+    map = smopy.Map( (area['lat_min'],area['lon_min'],area['lat_max'],area['lon_max']) , z=7)#z= zoom
+    #create figure with the map:
     ax = map.show_mpl(figsize=(8,8))
+    for location in locations :
+        x,y= map.to_pixels(float(location['lat']),float(location['lon']))
+        ax.plot(x,y,'ob', ms=4, mew=4) # (x,y , 'Forme+Couleur,  mew= epaisseur bordure)
+        ax.annotate(
+        'T°=%s \n Hum=%s'%
+        (location['temp'],location['humidity']), xy=(x,y),xytext=(3,3),textcoords="offset points",)
+        #xytext to move from point
     plt.show()
     return True
 
@@ -82,7 +93,8 @@ def main():
     print_dict(area,"AREA")
 
     #4 - get the map (according to boundaries)
-    map = get_map(area)
+    map = get_map(locations)
+
 
     # NOW, we have all the data we need, no more API Request !
 
